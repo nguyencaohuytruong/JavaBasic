@@ -30,7 +30,7 @@ public class StudentDAO {
                     day = input.nextInt();
                 }
                 continueInput = false;
-            } catch (InputMismatchException ex) {
+            } catch (Exception e) {
                 System.out.println("Bạn phải nhập ngày bằng số từ 1-31!");
             }
             input.nextLine();

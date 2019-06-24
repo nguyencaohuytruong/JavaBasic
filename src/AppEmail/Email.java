@@ -7,12 +7,12 @@ public class Email {
     private int thoiGianNhan;
     private boolean isRead;
 
-    public Email(String tieuDe, String nguoiGui, String noiDung, int thoiGianNhan, boolean isRead) {
+    public Email(String tieuDe, String nguoiGui, String noiDung, int thoiGianNhan) {
         this.tieuDe = tieuDe;
         this.nguoiGui = nguoiGui;
         this.noiDung = noiDung;
         this.thoiGianNhan = thoiGianNhan;
-        this.isRead = isRead;
+        this.isRead = false;
     }
 
     public Email(){
@@ -43,7 +43,7 @@ public class Email {
         this.noiDung = noiDung;
     }
 
-    public long getThoiGianNhan() {
+    public int getThoiGianNhan() {
         return thoiGianNhan;
     }
 
