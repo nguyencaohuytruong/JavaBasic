@@ -5,10 +5,10 @@ public class Main {
         EmailDAO emailDAO = new EmailDAO();
         emailDAO.checkThemMail();
         emailDAO.hienThiMail();
-//        emailDAO.danhDauDaDoc(1);
-//        emailDAO.hienThiMail();
-//        emailDAO.sapXepTheoTG();
-        emailDAO.diChuyenMail(4);
-//        emailDAO.xoaEmail();
+        emailDAO.danhDauDaDoc(1);
+        emailDAO.hienThiMail();
+        emailDAO.sapXepTheoTG();
+        emailDAO.diChuyenMail();
+        emailDAO.xoaEmail();
     }
 }

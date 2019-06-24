@@ -102,12 +102,8 @@ public class EmailDAO {
         Scanner input = new Scanner(System.in);
         int size = inbox.size();
         int numberMail = input.nextInt();
-        if (numberMail > size){
-            System.out.println("Số lượng Email bạn muốn xóa vượt quá số lượng Email trong danh sách. Mời bạn nhập lại!");
-            numberMail = input.nextInt();
-        }
-        if (numberMail < 0){
-            System.out.println("Số lượng Email bạn muốn xóa không tồn tại. Mời bạn nhập lại!");
+        if (numberMail > size || numberMail < 0){
+            System.out.println("Số lượng Email bạn muốn xóa không tồn tại hoặc vượt quá số lượng Email trong danh sách. Mời bạn nhập lại!");
             numberMail = input.nextInt();
         }
         List<Email> lastestEmails = inbox.subList(0, numberMail);
@@ -116,10 +112,15 @@ public class EmailDAO {
     }
 
     public void xoaEmail(){
-        for (int t = 0; t < inbox.size(); t++){
-            inbox.remove(inbox.get(t));
-            System.out.println(inbox.isEmpty());
+//        for (int t = 0; t < inbox.size(); t++){
+//            inbox.remove(inbox.get(t));
+//        }
+//        System.out.println("Inbox is empty");
+        while (!inbox.isEmpty()){
+            inbox.remove(0);
         }
         System.out.println("Inbox is empty");
     }
+
+
 }
