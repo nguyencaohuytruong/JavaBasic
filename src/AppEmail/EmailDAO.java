@@ -5,11 +5,11 @@ import java.util.*;
 public class EmailDAO {
     ArrayList<Email> inbox = new ArrayList<>();
     ArrayList<Email> labelLastest = new ArrayList<>();
+    private static boolean continueInput = true;
+    Scanner input = new Scanner(System.in);
 
     public void themMail() {
-        Scanner input = new Scanner(System.in);
         System.out.println("------------------------------------");
-
         System.out.println("TIÊU ĐỀ: ");
         String tieuDe = input.nextLine();
 
@@ -24,8 +24,7 @@ public class EmailDAO {
         String noiDung = input.nextLine();
 
         System.out.println("Thời gian nhận (1-24): ");
-        boolean continueInput = true;
-        int thoiGianNhan = 0;
+        int thoiGianNhan;
         do {
             try {
                 thoiGianNhan = input.nextInt();
@@ -36,6 +35,7 @@ public class EmailDAO {
                 continueInput = false;
             } catch (Exception e){
                 System.out.println("Bạn hãy nhập giờ từ 1-24!");
+                thoiGianNhan = input.nextInt();
             }
             input.nextLine();
         }
@@ -46,22 +46,36 @@ public class EmailDAO {
 
     public void checkThemMail() {
         Scanner input = new Scanner(System.in);
-        boolean check = true;
-        while (check) {
+        int nhap;
+        do {
+            System.out.println("------------------------------------");
             System.out.println("Bạn có muốn tạo thêm Gmail mới?\n" +
                     "1: Có | 2: Không");
-            int nhap;
-            nhap = input.nextInt();
-            if (nhap == 1){
-                themMail();
-            } else {
-                check = false;
+            try {
+                nhap = input.nextInt();
+                    switch (nhap){
+                        case 1:
+                            themMail();
+                            checkThemMail();
+                            break;
+                        case 2:
+                            continueInput = false;
+                            break;
+                        default:
+                            System.out.println("Câu trả lời không khớp. Mời bạn nhập lại!");
+                            checkThemMail();
+                            break;
+                    }
+            } catch (Exception e){
+                System.out.println("Câu trả lời sai định dạng. Bạn vui lòng nhập lại bằng số!");
+                checkThemMail();
             }
-        }
+        } while (continueInput);
     }
 
     public void hienThiMail() {
         int size = inbox.size();
+        System.out.println("------------------------------------");
         System.out.println("Bạn vừa nhận được " + size + " Gmail");
         for (int i = 0; i < size; i++) {
             Email email = inbox.get(i);
@@ -71,8 +85,13 @@ public class EmailDAO {
 
     public void danhDauDaDoc(int index) {
         int size = inbox.size();
-        if(index > 0 && index < size){
+        if(index >= 0 && index < size){
             inbox.get(index).setIsRead(true);
+        }
+        System.out.println("------------------------------------");
+        for (index = 0; index < size; index++) {
+            Email email = inbox.get(index);
+            System.out.println("Email thứ [" + index + "]" + email.toString());
         }
     }
 
@@ -93,32 +112,37 @@ public class EmailDAO {
            }
        });
         System.out.println("Danh sách Gmail được sắp xếp theo thời gian gửi gần nhất: ");
-        for (int j = 0; j < inbox.size(); j++){
-            System.out.println(inbox.get(j).toString());
-        }
+        hienThiMail();
     }
 
     public void diChuyenMail() {
-        Scanner input = new Scanner(System.in);
+        int numberMail;
         int size = inbox.size();
-        int numberMail = input.nextInt();
-        if (numberMail > size || numberMail < 0){
-            System.out.println("Số lượng Email bạn muốn xóa không tồn tại hoặc vượt quá số lượng Email trong danh sách. Mời bạn nhập lại!");
-            numberMail = input.nextInt();
-        }
+        do {
+            System.out.println("Nhập số lượng Mail muốn di chuyển: ");
+            try {
+                numberMail = input.nextInt();
+                if (numberMail > size || numberMail < 0){
+                    System.out.println("Số lượng Email bạn muốn xóa không tồn tại hoặc vượt quá số lượng Email trong danh sách. Mời bạn nhập lại!");
+                    numberMail = input.nextInt();
+                }
+            } catch (Exception e){
+                System.out.println("Nhập không đúng định dạng mời nhập lại");
+                numberMail = input.nextInt();
+            }
+        } while (continueInput);
         List<Email> lastestEmails = inbox.subList(0, numberMail);
         labelLastest.addAll(lastestEmails);
         inbox.removeAll(lastestEmails);
     }
 
     public void xoaEmail(){
-//        for (int t = 0; t < inbox.size(); t++){
-//            inbox.remove(inbox.get(t));
-//        }
-//        System.out.println("Inbox is empty");
-        while (!inbox.isEmpty()){
-            inbox.remove(0);
-        }
+        int numberMail;
+        System.out.println("Nhập số Email muốn xóa: ");
+        numberMail = input.nextInt();
+        inbox.remove(numberMail);
+
+
         System.out.println("Inbox is empty");
     }
 

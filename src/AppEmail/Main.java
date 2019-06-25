@@ -6,9 +6,7 @@ public class Main {
         emailDAO.checkThemMail();
         emailDAO.hienThiMail();
         emailDAO.danhDauDaDoc(1);
-        emailDAO.hienThiMail();
         emailDAO.sapXepTheoTG();
         emailDAO.diChuyenMail();
-        emailDAO.xoaEmail();
     }
 }
